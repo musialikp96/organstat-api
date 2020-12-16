@@ -3,25 +3,23 @@ import * as Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import UserModel from "./UserService/UserModel";
-import { UserResolver } from "./UserService/UserResolver";
 import * as Mongoose from "mongoose";
+import SongModel from "./song/SongModel";
+import { SongResolver } from "./song/graphql/SongResolver";
 
 async function startServer() {
   require("dotenv").config(__dirname + ".env");
 
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [SongResolver],
     emitSchemaFile: true,
     nullableByDefault: true,
   });
 
   const app = Express();
 
-  const MONGO_USER = process.env.MONGODB_USER;
-  const MONGO_PASS = process.env.MONGODB_PASS;
-
   Mongoose.connect(
-    `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-xv4mh.mongodb.net/test?retryWrites=true&w=majority`,
+    `mongodb://127.0.0.1:27017/organstat?readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -34,11 +32,12 @@ async function startServer() {
         schema,
         context: () => ({
           userModel: UserModel,
+          songModel: SongModel
         }),
       });
 
       server.applyMiddleware({ app });
-      const PORT = process.env.PORT;
+      const PORT = process.env.PORT || 3000;
       app.listen(PORT, () => {
         console.log(`server is running on PORT ${PORT}`);
       });
