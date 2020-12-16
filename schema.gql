@@ -3,14 +3,23 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Group Schema"""
+type Group {
+  id: ID
+  name: String
+}
+
 type Mutation {
   addSong(number: Float, name: String): Song
+  addGroup(name: String): Group
 }
 
 type Query {
   songById(id: String): Song
   songByNumber(number: Float): Song
   songList: [Song!]
+  groupById(id: String): Group
+  groupList: [Group!]
 }
 
 """Song Schema"""
