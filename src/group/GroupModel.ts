@@ -1,8 +1,7 @@
 import * as Mongoose from "mongoose";
 
 export interface IGroup extends Mongoose.Document {
-    name: string;
-    number: number;
+    name: string
 }
 
 export interface IGroupResponse {
@@ -16,11 +15,7 @@ const GroupSchema: Mongoose.Schema = new Mongoose.Schema(
         name: {
             type: String,
             required: true,
-        },
-        number: {
-            type: Number,
-            required: true,
-        },
+        }
     },
     { timestamps: true }
 );

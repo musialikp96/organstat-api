@@ -27,4 +27,5 @@ type Song {
   id: ID
   name: String
   number: Float
+  group: Group
 }
