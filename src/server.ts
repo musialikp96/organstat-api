@@ -2,7 +2,6 @@ import { ApolloServer } from "apollo-server-express";
 import * as Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import UserModel from "./UserService/UserModel";
 import * as Mongoose from "mongoose";
 import SongModel from "./song/SongModel";
 import { SongResolver } from "./song/graphql/SongResolver";
