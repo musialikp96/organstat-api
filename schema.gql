@@ -12,6 +12,15 @@ type Group {
 type Mutation {
   addSong(number: Float, name: String): Song
   addGroup(name: String): Group
+  addPlay(kind: Float, timestamp: Float, songId: String): Play
+}
+
+"""Play Schema"""
+type Play {
+  id: ID
+  kind: Float
+  song: Song
+  timestamp: Float
 }
 
 type Query {
@@ -20,6 +29,8 @@ type Query {
   songList: [Song!]
   groupById(id: String): Group
   groupList: [Group!]
+  playById(id: String): Play
+  playList: [Play!]
 }
 
 """Song Schema"""

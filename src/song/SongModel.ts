@@ -6,12 +6,6 @@ export interface ISong extends Mongoose.Document {
     group: string
 }
 
-export interface ISongResponse {
-    data: any,
-    succes: boolean,
-    errors: any
-}
-
 const SongSchema: Mongoose.Schema = new Mongoose.Schema(
     {
         name: {
