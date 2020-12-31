@@ -8,7 +8,7 @@ import {
 import PlaySchema from "./PlaySchema";
 import { IPlay } from "../PlayModel";
 import { Kind } from "../Kind";
-import { time } from "console";
+import SongModel from "../../song/SongModel";
 
 @Resolver((of) => PlaySchema)
 export class PlayResolver {
@@ -31,11 +31,19 @@ export class PlayResolver {
     async addPlay(
         @Arg("songId") songId: string,
         @Arg("timestamp") timestamp: number,
+        @Arg("number") number: number,
         @Arg("kind") kind: Kind,
         @Ctx() ctx: any
     ): Promise<IPlay> {
         if (!timestamp) {
             timestamp = Date.now();
+        }
+        if (!songId && number) {
+            let song = await SongModel.findOne({ number: number });
+
+            if (song?.id) {
+                songId = song?.id
+            }
         }
         const play = await new ctx.playModel({
             timestamp,

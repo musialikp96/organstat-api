@@ -12,7 +12,7 @@ type Group {
 type Mutation {
   addSong(number: Float, name: String): Song
   addGroup(name: String): Group
-  addPlay(kind: Float, timestamp: Float, songId: String): Play
+  addPlay(kind: Float, number: Float, timestamp: Float, songId: String): Play
 }
 
 """Play Schema"""
