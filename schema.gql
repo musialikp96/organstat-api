@@ -31,6 +31,8 @@ type Query {
   groupList: [Group!]
   playById(id: String): Play
   playList: [Play!]
+  playListByNumber(number: Float): [Play!]
+  playListByKind(kind: Float): [Play!]
 }
 
 """Song Schema"""

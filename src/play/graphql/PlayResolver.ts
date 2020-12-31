@@ -27,6 +27,20 @@ export class PlayResolver {
         return playCollection;
     }
 
+    @Query(() => [PlaySchema], { nullable: true })
+    async playListByNumber(@Arg("number") number: number, @Ctx() ctx: any): Promise<IPlay[]> {
+        const playCollection = await ctx.playModel.find().populate('song');
+
+        return playCollection.filter((play: any) => play.song.number === number);
+    }
+
+    @Query(() => [PlaySchema], { nullable: true })
+    async playListByKind(@Arg("kind") kind: Kind, @Ctx() ctx: any): Promise<IPlay[]> {
+        const playCollection = await ctx.playModel.find({ kind }).populate('song');
+
+        return playCollection;
+    }
+
     @Mutation(() => PlaySchema)
     async addPlay(
         @Arg("songId") songId: string,
