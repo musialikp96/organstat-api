@@ -27,7 +27,7 @@ type Query {
   songById(id: String): Song
   songByNumber(number: Float): Song
   songList: [Song!]
-  groupById(id: String): Group
+  groupById(id: String): [Song!]
   groupList: [Group!]
   playById(id: String): Play
   playList: [Play!]
