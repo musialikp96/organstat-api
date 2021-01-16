@@ -7,15 +7,17 @@ import {
 } from "type-graphql";
 import GroupSchema from "./GroupSchema";
 import { IGroup } from "../GroupModel";
+import { ISong } from "../../song/SongModel";
+import SongSchema from "../../song/graphql/SongSchema";
 
 @Resolver((of) => GroupSchema)
 export class GroupResolver {
 
-    @Query(() => GroupSchema, { nullable: true })
-    async groupById(@Arg("id") id: string, @Ctx() ctx: any): Promise<IGroup> {
-        const groupCollection = await ctx.groupModel.findOne({ _id: id });
+    @Query(() => [SongSchema], { nullable: true })
+    async groupById(@Arg("id") id: string, @Ctx() ctx: any): Promise<ISong[]> {
+        const songs = await ctx.songModel.find({ group: id });
 
-        return groupCollection;
+        return songs;
     }
 
     @Query(() => [GroupSchema], { nullable: true })

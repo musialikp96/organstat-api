@@ -1,19 +1,19 @@
 import { ApolloServer } from "apollo-server-express";
 import * as Express from "express";
 import "reflect-metadata";
-import { buildSchema } from "type-graphql";
 import * as Mongoose from "mongoose";
-import SongModel from "./song/SongModel";
-import { SongResolver } from "./song/graphql/SongResolver";
+import { context } from './context';
+import { resolvers } from './resolvers';
+import { buildSchema } from "type-graphql";
 
 async function startServer() {
   require("dotenv").config(__dirname + ".env");
 
   const schema = await buildSchema({
-    resolvers: [SongResolver],
+    resolvers,
     emitSchemaFile: true,
     nullableByDefault: true,
-  });
+  })
 
   const app = Express();
 
@@ -29,10 +29,7 @@ async function startServer() {
 
       const server = new ApolloServer({
         schema,
-        context: () => ({
-          userModel: UserModel,
-          songModel: SongModel
-        }),
+        context,
       });
 
       server.applyMiddleware({ app });

@@ -3,14 +3,36 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Group Schema"""
+type Group {
+  id: ID
+  name: String
+}
+
 type Mutation {
   addSong(number: Float, name: String): Song
+  addGroup(name: String): Group
+  addPlay(kind: Float, number: Float, timestamp: Float, songId: String): Play
+}
+
+"""Play Schema"""
+type Play {
+  id: ID
+  kind: Float
+  song: Song
+  timestamp: Float
 }
 
 type Query {
   songById(id: String): Song
   songByNumber(number: Float): Song
   songList: [Song!]
+  groupById(id: String): [Song!]
+  groupList: [Group!]
+  playById(id: String): Play
+  playList: [Play!]
+  playListByNumber(number: Float): [Play!]
+  playListByKind(kind: Float): [Play!]
 }
 
 """Song Schema"""
@@ -18,4 +40,5 @@ type Song {
   id: ID
   name: String
   number: Float
+  group: Group
 }

@@ -3,12 +3,7 @@ import * as Mongoose from "mongoose";
 export interface ISong extends Mongoose.Document {
     name: string;
     number: number;
-}
-
-export interface ISongResponse {
-    data: any,
-    succes: boolean,
-    errors: any
+    group: string
 }
 
 const SongSchema: Mongoose.Schema = new Mongoose.Schema(
@@ -21,6 +16,10 @@ const SongSchema: Mongoose.Schema = new Mongoose.Schema(
             type: Number,
             required: true,
         },
+        group: {
+            type: Mongoose.Schema.Types.ObjectId,
+            ref: 'Group'
+        }
     },
     { timestamps: true }
 );
